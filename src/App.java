@@ -1,7 +1,7 @@
 public class App {
     static WashingMachine wm;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         System.out.println("Добро пожаловать, это Стиральная Машина \"Оптимус прайм\"");
 
