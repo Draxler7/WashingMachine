@@ -99,6 +99,7 @@ public class WashingMachine implements Runnable {
         mainPanel.add(tempLabels.l40());
         mainPanel.add(tempLabels.l60());
         mainPanel.add(tempLabels.l70());
+        mainPanel.add(tempLabels.temp());
     }
 
     public JFrame getFrame() {
@@ -119,6 +120,7 @@ public class WashingMachine implements Runnable {
         System.out.println("Стирка закончилась");
         frame.validate();
         frame.repaint();
+        ListenerButton.setOff();
     }
 
     public void setTemp(int set) {

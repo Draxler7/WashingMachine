@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 public class ListenerButton extends WashingMachine implements KeyListener {
 
     private int controlTemp = 1;
+    private int controlMode = 0;
+    private static boolean working = false;
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -18,6 +20,7 @@ public class ListenerButton extends WashingMachine implements KeyListener {
         switch (press) {
             case 'q': {
                 System.out.println("Вы нажали: " + e.getKeyChar() + " - Режим работы: выбрано \"Смешанная ткань\"");
+                controlMode = 1;
                 Buttons but = new Buttons();
                 but.set1();
                 JFrame frm = getFrame();
@@ -27,6 +30,7 @@ public class ListenerButton extends WashingMachine implements KeyListener {
             }
             case 'w': {
                 System.out.println("Вы нажали: " + e.getKeyChar() + " - Режим работы: выбрано \"Хлопок\"");
+                controlMode = 2;
                 Buttons but = new Buttons();
                 but.set2();
                 JFrame frm = getFrame();
@@ -36,6 +40,7 @@ public class ListenerButton extends WashingMachine implements KeyListener {
             }
             case 'e': {
                 System.out.println("Вы нажали: " + e.getKeyChar() + " - Режим работы: выбрано \"Детская стирка\"");
+                controlMode = 3;
                 Buttons but = new Buttons();
                 but.set3();
                 JFrame frm = getFrame();
@@ -45,6 +50,7 @@ public class ListenerButton extends WashingMachine implements KeyListener {
             }
             case 'r': {
                 System.out.println("Вы нажали: " + e.getKeyChar() + " - Режим работы: выбрано \"Быстрая стирка\"");
+                controlMode = 4;
                 Buttons but = new Buttons();
                 but.set4();
                 JFrame frm = getFrame();
@@ -66,10 +72,11 @@ public class ListenerButton extends WashingMachine implements KeyListener {
             Timer tm = new Timer();
             Thread th = new Thread(tm);
             th.start();
+            working = true;
         }
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                if ((controlTemp > 0) && (controlTemp < 4)) {
+                if ((controlTemp > 0) && (controlTemp < 4) && (working == false)) {
                     controlTemp++;
                     System.out.print("Вы нажали вверх: ");
                     setTemp(controlTemp);
@@ -77,7 +84,7 @@ public class ListenerButton extends WashingMachine implements KeyListener {
                 break;
 
             case KeyEvent.VK_DOWN:
-                if ((controlTemp > 1) && (controlTemp < 5)) {
+                if ((controlTemp > 1) && (controlTemp < 5) && (working == false)) {
                     controlTemp--;
                     System.out.print("Вы нажали вниз: ");
                     setTemp(controlTemp);
@@ -92,6 +99,10 @@ public class ListenerButton extends WashingMachine implements KeyListener {
             default:
                 break;
         }
+    }
+
+    public static void setOff() {
+        working = false;
     }
 
 }
