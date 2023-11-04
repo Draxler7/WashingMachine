@@ -5,15 +5,16 @@ import javax.swing.JTextField;
 
 public class Buttons extends WashingMachine {
 
-    static JTextField mode1 = new JTextField("Cмешанные ткани");
+    static JTextField mode1 = new JTextField("Cмеш. ткани");
     static JTextField mode2 = new JTextField("Хлопок");
     static JTextField mode3 = new JTextField("Детская одежда");
     static JTextField mode4 = new JTextField("Быстрая стирка");
 
     public Buttons() {
+        mode1.setForeground(Color.BLACK);
         mode1.setBounds(20, 120, 100, 50);
         mode1.setHorizontalAlignment(0);
-        mode1.setEnabled(true);
+        mode1.setEnabled(false);
         mode1.setBackground(Color.DARK_GRAY);
         mode2.setBounds(140, 120, 100, 50);
         mode2.setHorizontalAlignment(0);
@@ -62,10 +63,14 @@ public class Buttons extends WashingMachine {
         activemode(mode4, mode2, mode3, mode1);
     }
 
-    public void activemode(JTextField mode12, JTextField mode22, JTextField mode32, JTextField mode42) {
-        mode12.setBackground(new Color(163, 255, 189));
-        mode22.setBackground(Color.DARK_GRAY);
-        mode32.setBackground(Color.DARK_GRAY);
-        mode42.setBackground(Color.DARK_GRAY);
+    public void activemode(JTextField b1, JTextField b2, JTextField b3, JTextField b4) {
+        b1.setBackground(new Color(163, 255, 189));
+        b1.setDisabledTextColor(Color.BLACK);
+        b2.setBackground(Color.DARK_GRAY);
+        b2.setDisabledTextColor(Color.WHITE);
+        b3.setBackground(Color.DARK_GRAY);
+        b3.setDisabledTextColor(Color.WHITE);
+        b4.setBackground(Color.DARK_GRAY);
+        b4.setDisabledTextColor(Color.WHITE);
     }
 }

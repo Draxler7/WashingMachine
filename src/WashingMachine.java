@@ -13,8 +13,8 @@ public class WashingMachine implements Runnable {
     static LoadP lp;
     public static JFrame frame;
     private JPanel mainPanel;
-    private JLabel windowMachine;
-    private JLabel windowMachine1;
+    private static JLabel windowMachine;
+    private static JLabel windowMachine1;
     private ImageIcon image;
     private ImageIcon image1;
     private boolean loading = true;
@@ -23,18 +23,11 @@ public class WashingMachine implements Runnable {
     public void run() {
         try {
             Thread.sleep(10);
+            lp = new LoadP();
 
-            while (loading) {
-                lp = new LoadP();
+            Thread load = new Thread(lp);
 
-                Thread load = new Thread(lp);
-
-                load.start();
-                load.join();
-                load.stop();
-                loading = false;
-
-            }
+            load.start();
 
             frame = new JFrame();
             frame.setLayout(null);
@@ -76,6 +69,8 @@ public class WashingMachine implements Runnable {
             frame.validate();
             frame.repaint();
 
+            load.join();
+
             frame.setVisible(true);
 
             ListenerButton clicker = new ListenerButton();
@@ -102,6 +97,22 @@ public class WashingMachine implements Runnable {
 
     public JFrame getFrame() {
         return this.frame;
+    }
+
+    public void working() {
+        frame.remove(windowMachine);
+        frame.add(windowMachine1);
+        System.out.println("Стирка началась!");
+        frame.validate();
+        frame.repaint();
+    }
+
+    public void stopWorking() {
+        frame.remove(windowMachine1);
+        frame.add(windowMachine);
+        System.out.println("Стирка закончилась");
+        frame.validate();
+        frame.repaint();
     }
 
 }
