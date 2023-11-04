@@ -26,7 +26,7 @@ public class WashingMachine implements Runnable {
     private static JLabel tempLabel40;
     private static JLabel tempLabel60;
     private static JLabel tempLabel70;
-    private ImageIcon image;
+    protected ImageIcon image;
     private ImageIcon image1;
     private ImageIcon setTemp30;
     private ImageIcon setTemp40;
@@ -109,7 +109,8 @@ public class WashingMachine implements Runnable {
     public void working() {
         frame.remove(windowMachine);
         frame.add(windowMachine1);
-        System.out.println("Стирка началась!");
+        System.out.println("Стирка началась\nРежим стирки: " + ListenerButton.getMode() + "\nТемпература: "
+                + ListenerButton.getTemp());
         frame.validate();
         frame.repaint();
     }
