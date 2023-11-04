@@ -1,8 +1,15 @@
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,11 +19,19 @@ public class WashingMachine implements Runnable {
 
     static LoadP lp;
     public static JFrame frame;
-    private JPanel mainPanel;
+    private static JPanel mainPanel;
     private static JLabel windowMachine;
     private static JLabel windowMachine1;
+    private static JLabel tempLabel30;
+    private static JLabel tempLabel40;
+    private static JLabel tempLabel60;
+    private static JLabel tempLabel70;
     private ImageIcon image;
     private ImageIcon image1;
+    private ImageIcon setTemp30;
+    private ImageIcon setTemp40;
+    private ImageIcon setTemp60;
+    private ImageIcon setTemp70;
     private boolean loading = true;
     private static String str;
 
@@ -43,28 +58,12 @@ public class WashingMachine implements Runnable {
             mainPanel.setBackground(Color.LIGHT_GRAY);
             frame.add(mainPanel);
 
-            try {
-                image = new ImageIcon(getClass().getResource("okno.png"));
-                Image scalImage = image.getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH);
-                image = new ImageIcon(scalImage);
-                windowMachine = new JLabel(image);
-                windowMachine.setBounds(90, 200, 400, 400);
-
-                image1 = new ImageIcon(getClass().getResource("work okno.png"));
-                Image scalImage1 = image1.getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH);
-                image1 = new ImageIcon(scalImage1);
-                windowMachine1 = new JLabel(image1);
-                windowMachine1.setBounds(90, 200, 400, 400);
-
-                Image img = Toolkit.getDefaultToolkit().getImage("bin\\iconic.jpg");
-                frame.setIconImage(img);
-            } catch (Exception e) {
-                System.err.println("Картинка не найдена");
-            }
-
-            frame.add(windowMachine);
-
+            setImages();
             addButtons();
+            addLabels();
+
+            mainPanel.add(tempLabel30);
+            frame.add(windowMachine);
 
             frame.validate();
             frame.repaint();
@@ -92,7 +91,14 @@ public class WashingMachine implements Runnable {
         mainPanel.add(comp2);
         mainPanel.add(comp3);
         mainPanel.add(comp4);
+    }
 
+    public void addLabels() {
+        Labels tempLabels = new Labels();
+        mainPanel.add(tempLabels.l30());
+        mainPanel.add(tempLabels.l40());
+        mainPanel.add(tempLabels.l60());
+        mainPanel.add(tempLabels.l70());
     }
 
     public JFrame getFrame() {
@@ -115,4 +121,88 @@ public class WashingMachine implements Runnable {
         frame.repaint();
     }
 
+    public void setTemp(int set) {
+        switch (set) {
+            case 1:
+                mainPanel.remove(tempLabel30);
+                mainPanel.remove(tempLabel40);
+                mainPanel.remove(tempLabel60);
+                mainPanel.remove(tempLabel70);
+                mainPanel.add(tempLabel30);
+                System.out.println("Поставлено 30'");
+                frame.validate();
+                frame.repaint();
+                break;
+            case 2:
+                mainPanel.remove(tempLabel30);
+                mainPanel.remove(tempLabel40);
+                mainPanel.remove(tempLabel60);
+                mainPanel.remove(tempLabel70);
+                mainPanel.add(tempLabel40);
+                System.out.println("Поставлено 40'");
+                frame.validate();
+                frame.repaint();
+                break;
+            case 3:
+                mainPanel.remove(tempLabel30);
+                mainPanel.remove(tempLabel40);
+                mainPanel.remove(tempLabel60);
+                mainPanel.remove(tempLabel70);
+                mainPanel.add(tempLabel60);
+                System.out.println("Поставлено 60'");
+                frame.validate();
+                frame.repaint();
+                break;
+            case 4:
+                mainPanel.remove(tempLabel30);
+                mainPanel.remove(tempLabel40);
+                mainPanel.remove(tempLabel60);
+                mainPanel.remove(tempLabel70);
+                mainPanel.add(tempLabel70);
+                System.out.println("Поставлено 70'");
+                frame.validate();
+                frame.repaint();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void setImages() {
+        try {
+            image = new ImageIcon(getClass().getResource("okno.png"));
+            Image scalImage = image.getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+            image = new ImageIcon(scalImage);
+            windowMachine = new JLabel(image);
+            windowMachine.setBounds(90, 200, 400, 400);
+
+            image1 = new ImageIcon(getClass().getResource("work okno.png"));
+            Image scalImage1 = image1.getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+            image1 = new ImageIcon(scalImage1);
+            windowMachine1 = new JLabel(image1);
+            windowMachine1.setBounds(90, 200, 400, 400);
+
+            setTemp30 = new ImageIcon(getClass().getResource("temp30.png"));
+            tempLabel30 = new JLabel(setTemp30);
+            tempLabel30.setBounds(500, 50, 50, 50);
+
+            setTemp40 = new ImageIcon(getClass().getResource("temp40.png"));
+            tempLabel40 = new JLabel(setTemp40);
+            tempLabel40.setBounds(500, 50, 50, 50);
+
+            setTemp60 = new ImageIcon(getClass().getResource("temp60.png"));
+            tempLabel60 = new JLabel(setTemp60);
+            tempLabel60.setBounds(500, 50, 50, 50);
+
+            setTemp70 = new ImageIcon(getClass().getResource("temp70.png"));
+            tempLabel70 = new JLabel(setTemp70);
+            tempLabel70.setBounds(500, 50, 50, 50);
+
+            Image img = Toolkit.getDefaultToolkit().getImage("bin\\iconic.jpg");
+            frame.setIconImage(img);
+        } catch (Exception e) {
+            System.err.println("Картинка не найдена");
+        }
+
+    }
 }

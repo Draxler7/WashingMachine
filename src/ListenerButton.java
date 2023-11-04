@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 
 public class ListenerButton extends WashingMachine implements KeyListener {
 
+    private int controlTemp = 1;
+
     @Override
     public void keyPressed(KeyEvent e) {
         // TODO document why this method is empty
@@ -54,21 +56,41 @@ public class ListenerButton extends WashingMachine implements KeyListener {
             default:
                 break;
         }
+
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // TODO document why this method is empty
-        try {
-            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                working();
-                Timer tm = new Timer();
-                Thread th = new Thread(tm);
-                th.start();
-                th.join();
-            }
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            working();
+            Timer tm = new Timer();
+            Thread th = new Thread(tm);
+            th.start();
+        }
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                if ((controlTemp > 0) && (controlTemp < 4)) {
+                    controlTemp++;
+                    System.out.print("Вы нажали вверх: ");
+                    setTemp(controlTemp);
+                }
+                break;
+
+            case KeyEvent.VK_DOWN:
+                if ((controlTemp > 1) && (controlTemp < 5)) {
+                    controlTemp--;
+                    System.out.print("Вы нажали вниз: ");
+                    setTemp(controlTemp);
+                }
+                break;
+            case KeyEvent.VK_LEFT:
+
+                break;
+            case KeyEvent.VK_RIGHT:
+
+                break;
+            default:
+                break;
         }
     }
 
