@@ -5,12 +5,14 @@ import javax.swing.JTextField;
 
 public class Buttons extends WashingMachine {
 
+    // Текстовые поля панели "Выбор режима"
     static JTextField mode1 = new JTextField("Cмеш. ткани");
     static JTextField mode2 = new JTextField("Хлопок");
     static JTextField mode3 = new JTextField("Детская одежда");
     static JTextField mode4 = new JTextField("Быстрая стирка");
 
     public Buttons() {
+        // Настройка текстовых полей
         mode1.setForeground(Color.BLACK);
         mode1.setBounds(20, 120, 100, 50);
         mode1.setHorizontalAlignment(0);
@@ -31,6 +33,7 @@ public class Buttons extends WashingMachine {
 
     }
 
+    // Получение текстовых полей для реализации
     public Component btn1() {
         return mode1;
     }
@@ -47,6 +50,7 @@ public class Buttons extends WashingMachine {
         return mode4;
     }
 
+    // Методы активации режимов
     public void set1() {
         activemode(mode1, mode2, mode3, mode4);
     }
@@ -63,6 +67,7 @@ public class Buttons extends WashingMachine {
         activemode(mode4, mode2, mode3, mode1);
     }
 
+    // Изменение цветов режимов, активный - зеленый : неактивный - серый
     public void activemode(JTextField b1, JTextField b2, JTextField b3, JTextField b4) {
         b1.setBackground(new Color(163, 255, 189));
         b1.setDisabledTextColor(Color.BLACK);

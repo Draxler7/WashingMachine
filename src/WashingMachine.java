@@ -17,33 +17,40 @@ import javax.swing.JPanel;
 
 public class WashingMachine implements Runnable {
 
+    // Загрузка
     static LoadP lp;
+    // Главный фрейм
     public static JFrame frame;
+    // Верхняя панель
     private static JPanel mainPanel;
+    // Окно неработающей стиралки
     private static JLabel windowMachine;
+    // Окно работающей стиралки
     private static JLabel windowMachine1;
+    // Режимы температуры
     private static JLabel tempLabel30;
     private static JLabel tempLabel40;
     private static JLabel tempLabel60;
     private static JLabel tempLabel70;
+    // Иконка
     protected ImageIcon image;
     private ImageIcon image1;
     private ImageIcon setTemp30;
     private ImageIcon setTemp40;
     private ImageIcon setTemp60;
     private ImageIcon setTemp70;
-    private boolean loading = true;
-    private static String str;
 
     public void run() {
         try {
             Thread.sleep(10);
+
+            // Создание потока загрузки и запуск его(Пока загрузка происходит обрабатывается
+            // дальнейший код)
             lp = new LoadP();
-
             Thread load = new Thread(lp);
-
             load.start();
 
+            // Создание и настройка Фрейма
             frame = new JFrame();
             frame.setLayout(null);
             frame.getContentPane().setBackground(java.awt.Color.GRAY);
@@ -52,26 +59,35 @@ public class WashingMachine implements Runnable {
             frame.setResizable(false);
             frame.setTitle("Стиральная машина \"Оптимус Прайм v1.0.0\"");
 
+            // Создание и настройка панели сверху
             mainPanel = new JPanel();
             mainPanel.setLayout(null);
             mainPanel.setBounds(0, 0, 600, 180);
             mainPanel.setBackground(Color.LIGHT_GRAY);
             frame.add(mainPanel);
 
+            // Добавление картинок
             setImages();
+            // Добавление текстовых полей режимов
             addButtons();
+            // Добавление меток температуры
             addLabels();
 
+            // Добавление элементовна панель, фрейм
             mainPanel.add(tempLabel30);
             frame.add(windowMachine);
 
+            // refresh frame
             frame.validate();
             frame.repaint();
 
+            // Ожидание потока загрузки
             load.join();
 
+            // Отображение фрейма
             frame.setVisible(true);
 
+            // Добавление отработчика события нажатия клавиш
             ListenerButton clicker = new ListenerButton();
             frame.addKeyListener(clicker);
 
@@ -81,6 +97,7 @@ public class WashingMachine implements Runnable {
 
     }
 
+    // Добавление текстовых полей на панель
     public void addButtons() {
         Buttons but = new Buttons();
         Component comp1 = but.btn1();
@@ -93,6 +110,7 @@ public class WashingMachine implements Runnable {
         mainPanel.add(comp4);
     }
 
+    // Добавление меток температуры
     public void addLabels() {
         Labels tempLabels = new Labels();
         mainPanel.add(tempLabels.l30());
@@ -102,10 +120,12 @@ public class WashingMachine implements Runnable {
         mainPanel.add(tempLabels.temp());
     }
 
+    // Метод получения фрейма этого класса
     public JFrame getFrame() {
         return this.frame;
     }
 
+    // Процесс работы стиральной машины, оповещение, смена картинки окна
     public void working() {
         frame.remove(windowMachine);
         frame.add(windowMachine1);
@@ -115,6 +135,7 @@ public class WashingMachine implements Runnable {
         frame.repaint();
     }
 
+    // Остановка работы стиральной машины
     public void stopWorking() {
         frame.remove(windowMachine1);
         frame.add(windowMachine);
@@ -124,6 +145,7 @@ public class WashingMachine implements Runnable {
         ListenerButton.setOff();
     }
 
+    // Отображение крутилки картинки о температуры
     public void setTemp(int set) {
         switch (set) {
             case 1:
@@ -171,6 +193,7 @@ public class WashingMachine implements Runnable {
         }
     }
 
+    // Добавление картинок из /bin
     public void setImages() {
         try {
             image = new ImageIcon(getClass().getResource("okno.png"));

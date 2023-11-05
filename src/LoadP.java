@@ -3,8 +3,8 @@ import javax.swing.JPanel;
 
 import java.awt.Color;
 
+// Класс поток, для загрузки
 public class LoadP implements Runnable {
-
     JPanel p1 = new JPanel();
     JPanel p2 = new JPanel();
     JPanel p3 = new JPanel();

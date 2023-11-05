@@ -3,6 +3,7 @@ import java.awt.Component;
 import javax.swing.JLabel;
 
 public class Labels extends WashingMachine {
+    // Метки температуры
     JLabel t30 = new JLabel("30");
     JLabel t40 = new JLabel("40");
     JLabel t60 = new JLabel("60");
@@ -10,6 +11,7 @@ public class Labels extends WashingMachine {
     JLabel temp = new JLabel("Температура:");
 
     public Labels() {
+        // Определение расположения меток
         t30.setBounds(518, 33, 20, 20);
         t40.setBounds(551, 64, 20, 20);
         t60.setBounds(518, 97, 20, 20);
@@ -17,6 +19,7 @@ public class Labels extends WashingMachine {
         temp.setBounds(485, 13, 100, 20);
     }
 
+    // Получения меток с этого класса для реализации вне
     public Component l30() {
         return t30;
     }
