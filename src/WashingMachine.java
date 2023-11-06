@@ -40,6 +40,7 @@ public class WashingMachine implements Runnable {
     private ImageIcon setTemp40;
     private ImageIcon setTemp60;
     private ImageIcon setTemp70;
+    private JPanel spinPanel;
 
     public void run() {
         try {
@@ -69,16 +70,22 @@ public class WashingMachine implements Runnable {
 
             pressPanel = new JPanel();
             pressPanel.setLayout(null);
-            pressPanel.setBounds(20, 20, 220, 90);
+            pressPanel.setBounds(20, 20, 180, 90);
             pressPanel.setBackground(new Color(184, 143, 143));
             mainPanel.add(pressPanel);
 
+            spinPanel = new JPanel();
+            spinPanel.setLayout(null);
+            spinPanel.setBounds(250, 65, 200, 45);
+            spinPanel.setBackground(new Color(151, 28, 153));
+            mainPanel.add(spinPanel);
+
             // Добавление картинок
             setImages();
-            // Добавление текстовых полей режимов
-            addButtons();
             // Добавление меток температуры
             addLabels();
+            // Добавление текстовых полей режимов
+            addButtons();
 
             // Добавление элементовна панель, фрейм
             mainPanel.add(tempLabel30);
@@ -107,14 +114,11 @@ public class WashingMachine implements Runnable {
     // Добавление текстовых полей на панель
     public void addButtons() {
         Buttons but = new Buttons();
-        Component comp1 = but.btn1();
-        Component comp2 = but.btn2();
-        Component comp3 = but.btn3();
-        Component comp4 = but.btn4();
-        mainPanel.add(comp1);
-        mainPanel.add(comp2);
-        mainPanel.add(comp3);
-        mainPanel.add(comp4);
+        mainPanel.add(but.btn1());
+        mainPanel.add(but.btn2());
+        mainPanel.add(but.btn3());
+        mainPanel.add(but.btn4());
+        pressPanel.add(but.pressMode());
     }
 
     // Добавление меток температуры
@@ -126,7 +130,6 @@ public class WashingMachine implements Runnable {
         mainPanel.add(Labels.l70());
         mainPanel.add(Labels.temp());
         pressPanel.add(Labels.press());
-        pressPanel.add(Labels.pressManual());
     }
 
     // Метод получения фрейма этого класса
