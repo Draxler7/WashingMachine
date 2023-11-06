@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 
 import javax.swing.JLabel;
 
@@ -10,6 +12,9 @@ public class Labels extends WashingMachine {
     JLabel t70 = new JLabel("70");
     JLabel temp = new JLabel("Температура:");
 
+    JLabel press = new JLabel("Отжим: ");
+    JLabel pressManual = new JLabel("<html>1 - Сильный отжим<br>2 - Средний отжим<br>3 - Слабый отжим</html>");
+
     public Labels() {
         // Определение расположения меток
         t30.setBounds(518, 33, 20, 20);
@@ -17,6 +22,9 @@ public class Labels extends WashingMachine {
         t60.setBounds(518, 97, 20, 20);
         t70.setBounds(485, 63, 20, 20);
         temp.setBounds(485, 13, 100, 20);
+        pressManual.setBounds(20, 5, 200, 50);
+        press.setBounds(20, 45, 100, 40);
+        press.setFont(new Font(null, 0, 25));
     }
 
     // Получения меток с этого класса для реализации вне
@@ -38,5 +46,13 @@ public class Labels extends WashingMachine {
 
     public Component temp() {
         return temp;
+    }
+
+    public Component press() {
+        return press;
+    }
+
+    public Component pressManual() {
+        return pressManual;
     }
 }

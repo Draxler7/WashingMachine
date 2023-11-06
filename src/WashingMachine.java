@@ -23,6 +23,7 @@ public class WashingMachine implements Runnable {
     public static JFrame frame;
     // Верхняя панель
     private static JPanel mainPanel;
+    private static JPanel pressPanel;
     // Окно неработающей стиралки
     private static JLabel windowMachine;
     // Окно работающей стиралки
@@ -65,6 +66,12 @@ public class WashingMachine implements Runnable {
             mainPanel.setBounds(0, 0, 600, 180);
             mainPanel.setBackground(Color.LIGHT_GRAY);
             frame.add(mainPanel);
+
+            pressPanel = new JPanel();
+            pressPanel.setLayout(null);
+            pressPanel.setBounds(20, 20, 220, 90);
+            pressPanel.setBackground(new Color(184, 143, 143));
+            mainPanel.add(pressPanel);
 
             // Добавление картинок
             setImages();
@@ -112,12 +119,14 @@ public class WashingMachine implements Runnable {
 
     // Добавление меток температуры
     public void addLabels() {
-        Labels tempLabels = new Labels();
-        mainPanel.add(tempLabels.l30());
-        mainPanel.add(tempLabels.l40());
-        mainPanel.add(tempLabels.l60());
-        mainPanel.add(tempLabels.l70());
-        mainPanel.add(tempLabels.temp());
+        Labels Labels = new Labels();
+        mainPanel.add(Labels.l30());
+        mainPanel.add(Labels.l40());
+        mainPanel.add(Labels.l60());
+        mainPanel.add(Labels.l70());
+        mainPanel.add(Labels.temp());
+        pressPanel.add(Labels.press());
+        pressPanel.add(Labels.pressManual());
     }
 
     // Метод получения фрейма этого класса
