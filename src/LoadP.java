@@ -21,7 +21,6 @@ public class LoadP implements Runnable {
         JFrame load;
         try {
 
-            LoadP lp = new LoadP();
             load = new JFrame();
             load.setLayout(null);
             load.getContentPane().setBackground(java.awt.Color.WHITE);
@@ -31,7 +30,6 @@ public class LoadP implements Runnable {
             setPanel();
             load.getContentPane().add(p1);
             load.setVisible(true);
-            ;
             Thread.sleep(100);
             load.getContentPane().add(p2);
             load.validate();
@@ -68,9 +66,6 @@ public class LoadP implements Runnable {
             load.getContentPane().add(p10);
             load.validate();
             load.repaint();
-            // JOptionPane.showMessageDialog(load,
-            // "Загрузка завершена",
-            // null, JOptionPane.PLAIN_MESSAGE);
             Thread.sleep(100);
             load.setVisible(false);
         } catch (InterruptedException e) {

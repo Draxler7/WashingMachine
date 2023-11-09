@@ -2,14 +2,16 @@ public class App {
     static WashingMachine wm;
 
     public static void main(String[] args) {
-        // Приветствие
+        // Welcome message
         System.out.println("Добро пожаловать, это Стиральная Машина \"Оптимус прайм\"");
 
+        // Creates a new instance of the Washing Machine
         wm = new WashingMachine();
 
-        // Создание потока для приложения
+        // Starts a new thread for the application
         Thread th = new Thread(wm);
-        th.start();// Запуск потока
+        th.start();// Thread running
+
     }
 
 }

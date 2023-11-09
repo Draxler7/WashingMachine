@@ -1,15 +1,7 @@
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,11 +27,7 @@ public class WashingMachine implements Runnable {
     private static JLabel tempLabel70;
     // Иконка
     protected ImageIcon image;
-    private ImageIcon image1;
-    private ImageIcon setTemp30;
-    private ImageIcon setTemp40;
-    private ImageIcon setTemp60;
-    private ImageIcon setTemp70;
+
     private JPanel spinPanel;
 
     public void run() {
@@ -76,7 +64,7 @@ public class WashingMachine implements Runnable {
 
             spinPanel = new JPanel();
             spinPanel.setLayout(null);
-            spinPanel.setBounds(250, 65, 200, 45);
+            spinPanel.setBounds(250, 60, 200, 50);
             spinPanel.setBackground(new Color(151, 28, 153));
             mainPanel.add(spinPanel);
 
@@ -119,22 +107,24 @@ public class WashingMachine implements Runnable {
         mainPanel.add(but.btn3());
         mainPanel.add(but.btn4());
         pressPanel.add(but.pressMode());
+        spinPanel.add(but.spinMode());
+        mainPanel.add(but.weight());
     }
 
     // Добавление меток температуры
     public void addLabels() {
-        Labels Labels = new Labels();
-        mainPanel.add(Labels.l30());
-        mainPanel.add(Labels.l40());
-        mainPanel.add(Labels.l60());
-        mainPanel.add(Labels.l70());
-        mainPanel.add(Labels.temp());
-        pressPanel.add(Labels.press());
+        Labels labels = new Labels();
+        mainPanel.add(labels.l30());
+        mainPanel.add(labels.l40());
+        mainPanel.add(labels.l60());
+        mainPanel.add(labels.l70());
+        mainPanel.add(labels.temp());
+        pressPanel.add(labels.press());
     }
 
     // Метод получения фрейма этого класса
     public JFrame getFrame() {
-        return this.frame;
+        return WashingMachine.frame;
     }
 
     // Процесс работы стиральной машины, оповещение, смена картинки окна
@@ -142,7 +132,8 @@ public class WashingMachine implements Runnable {
         frame.remove(windowMachine);
         frame.add(windowMachine1);
         System.out.println("Стирка началась\nРежим стирки: " + ListenerButton.getMode() + "\nТемпература: "
-                + ListenerButton.getTemp());
+                + ListenerButton.getTemp() + "\nКол-во отжимов: " + ListenerButton.getPress() + "\nКол-во оборотов: "
+                + ListenerButton.getSpin() + "\nВес одежды составляет: " + ListenerButton.getWeight());
         frame.validate();
         frame.repaint();
     }
@@ -207,6 +198,11 @@ public class WashingMachine implements Runnable {
 
     // Добавление картинок из /bin
     public void setImages() {
+        ImageIcon setTemp70;
+        ImageIcon setTemp60;
+        ImageIcon setTemp40;
+        ImageIcon setTemp30;
+        ImageIcon image1;
         try {
             image = new ImageIcon(getClass().getResource("okno.png"));
             Image scalImage = image.getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH);
