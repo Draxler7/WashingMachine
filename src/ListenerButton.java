@@ -1,3 +1,4 @@
+import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -10,8 +11,10 @@ public class ListenerButton extends WashingMachine implements KeyListener {
     // Числа обозначения режима и температуры стирки
     private static int controlTemp = 1;
     private static int controlMode = 0;
+    private static int controlPress = 0;
     // Процесс работы протекает или нет
     private static boolean working = false;
+    Buttons but = new Buttons();
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -30,7 +33,6 @@ public class ListenerButton extends WashingMachine implements KeyListener {
                     // Вывод о смене режима, активирование текстового поля с выбранным режимом
                     System.out.println("Вы нажали: " + e.getKeyChar() + " - Режим работы: выбрано \"Смешанная ткань\"");
                     controlMode = 1;
-                    Buttons but = new Buttons();
                     but.set1();
                     JFrame frm = getFrame();
                     frm.validate();
@@ -81,23 +83,34 @@ public class ListenerButton extends WashingMachine implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         // Определение что нажат ЕНТЕР
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            // Если режим мойки не выбран, то процесс запуска не включается
-            // Запуск процесса мойки и создание нового потока таймера(определяющий время
-            // работы)
-            if (controlMode != 0) {
-                working();
-                Timer tm = new Timer();
-                Thread th = new Thread(tm);
-                th.start();
-                working = true;
-            } else {
-                System.out.println("Выберите режим мойки");
-                JOptionPane.showOptionDialog(null, "Выберите для начала режим мойки", null, 0, 0, null, null, e);
-            }
-        }
         // Определение нажатия стрелочек клавиши клавиатуры
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_1:
+
+                but.activemode("1");
+                break;
+            case KeyEvent.VK_2:
+                but.activemode("2");
+                break;
+            case KeyEvent.VK_3:
+                but.activemode("3");
+                break;
+            case KeyEvent.VK_ENTER:
+                // Если режим мойки не выбран, то процесс запуска не включается
+                // Запуск процесса мойки и создание нового потока таймера(определяющий время
+                // работы)
+                if (controlMode != 0) {
+                    working();
+                    Timer tm = new Timer();
+                    Thread th = new Thread(tm);
+                    th.start();
+                    working = true;
+                } else {
+                    System.out.println("Выберите режим мойки");
+                    JOptionPane.showOptionDialog(null, "Выберите для начала режим мойки", null, 0, 0, null, null, e);
+                }
+                break;
+
             // Если нажата стрелка вверх то температура подымается
             case KeyEvent.VK_UP:
                 if ((controlTemp > 0) && (controlTemp < 4) && (working == false)) {
@@ -121,6 +134,7 @@ public class ListenerButton extends WashingMachine implements KeyListener {
             case KeyEvent.VK_RIGHT:
 
                 break;
+
             default:
                 break;
         }

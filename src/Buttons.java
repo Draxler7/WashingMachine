@@ -36,6 +36,7 @@ public class Buttons extends WashingMachine {
         pressMode.setFont(new Font(null, 0, 20));
         pressMode.setBackground(new Color(143, 23, 23));
         pressMode.setEnabled(false);
+        pressMode.setHorizontalAlignment(0);
     }
 
     // Получение текстовых полей для реализации
@@ -86,5 +87,23 @@ public class Buttons extends WashingMachine {
         b3.setDisabledTextColor(Color.WHITE);
         b4.setBackground(Color.DARK_GRAY);
         b4.setDisabledTextColor(Color.WHITE);
+    }
+
+    public void activemode(String i) {
+        pressMode.setText(i);
+        switch (i) {
+            case "1":
+                pressMode.setDisabledTextColor(Color.pink);
+                break;
+
+            case "2":
+                pressMode.setDisabledTextColor(Color.CYAN);
+                break;
+            case "3":
+                pressMode.setDisabledTextColor(Color.ORANGE);
+                break;
+            default:
+                break;
+        }
     }
 }
